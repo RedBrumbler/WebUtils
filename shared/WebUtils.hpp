@@ -53,7 +53,7 @@ namespace WebUtils {
     template<response_impl T>
     requires(std::is_default_constructible_v<T>)
     inline std::future<T> WEBUTILS_EXPORT PostAsync(URLOptions urlOptions, std::span<uint8_t const> data, std::function<void(float)> progressReport = nullptr) {
-        return downloader.PostAsync<T>(std::forward<URLOptions>(urlOptions), std::forward<std::function<void(float)>>(progressReport));
+        return downloader.PostAsync<T>(std::forward<URLOptions>(urlOptions), std::forward<std::span<uint8_t const>>(data), std::forward<std::function<void(float)>>(progressReport));
     }
 
     /// @brief runs a get request asynchronously, calling onFinished when done
@@ -65,7 +65,7 @@ namespace WebUtils {
     template<response_impl T>
     requires(std::is_default_constructible_v<T>)
     inline void WEBUTILS_EXPORT PostAsync(URLOptions urlOptions, std::span<uint8_t const> data, std::function<void(T)> onFinished, std::function<void(float)> progressReport = nullptr) {
-        downloader.PostAsync<T>(std::forward<URLOptions>(urlOptions), std::forward<std::function<void(T)>>(onFinished), std::forward<std::function<void(float)>>(progressReport));
+        downloader.PostAsync<T>(std::forward<URLOptions>(urlOptions), std::forward<std::span<uint8_t const>>(data), std::forward<std::function<void(T)>>(onFinished), std::forward<std::function<void(float)>>(progressReport));
     }
 
     /// @brief runs a get request synchronously
@@ -77,7 +77,7 @@ namespace WebUtils {
     template<response_impl T>
     requires(std::is_default_constructible_v<T>)
     inline T WEBUTILS_EXPORT Post(URLOptions urlOptions, std::span<uint8_t const> data, std::function<void(float)> progressReport = nullptr) {
-        return downloader.Post<T>(std::forward<URLOptions>(urlOptions), std::forward<std::function<void(float)>>(progressReport));
+        return downloader.Post<T>(std::forward<URLOptions>(urlOptions), std::forward<std::span<uint8_t const>>(data), std::forward<std::function<void(float)>>(progressReport));
     }
 #pragma endregion // POST
 }
